@@ -1,0 +1,16 @@
+{
+  "response": [
+    {
+      "question": "How are you?",
+      "answer": "I'm doing well, thank you!"
+    },
+    {
+      "question": "What's your name?",
+      "answer": "I am the Virtual Assistant"
+    },
+    {
+      "question": "Can you help me with something?",
+      "answer": "Of course! I'm here to assist you."
+    }
+  ]
+}
