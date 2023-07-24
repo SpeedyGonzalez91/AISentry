@@ -1,9 +1,12 @@
 package com.example.aivirtualassistant;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -26,8 +29,13 @@ public class OpenAIService {
         httpPost.setHeader("Content-Type", "application/json");
 
         try {
-            String requestBody = "{\"prompt\": \"" + prompt + "\"}";
-            httpPost.setEntity(new StringEntity(requestBody));
+            // Create JSON request using Jackson
+            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectNode requestBody = objectMapper.createObjectNode();
+            requestBody.put("prompt", prompt);
+
+            String requestBodyString = objectMapper.writeValueAsString(requestBody);
+            httpPost.setEntity(new StringEntity(requestBodyString, ContentType.APPLICATION_JSON));
 
             // Execute the request
             HttpResponse response = httpClient.execute(httpPost);
@@ -46,10 +54,7 @@ public class OpenAIService {
 
             throw new RuntimeException("Juan's Exception!");
         }
-
-
     }
-
 }
 
 
